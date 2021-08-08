@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+
+
+  <div class="content-area">
+    <h1 class="text-center mt-3 mb-3">Random Password Generator</h1>
+    <form method="POST" action="/">
+      {% csrf_token %}
+      <div class="input-group mb-3">
+        <input type="text" id="password" class="form-control form-control-lg" placeholder="Random Password"
+          aria-label="Random Password" {% if password %} value={{ password }} {% endif %}>
+      </div>
+      <label for="range" class="form-label">Length: </label><span id="rangeval">{% if length %} {{length}} {% else %}11
+        {% endif %}</span>
+      <input type="range" class="form-range" min="1" max="20" name="length" id="range" {% if length %}
+        value="{{ length }}" {% endif %}
+        onChange="document.getElementById('rangeval').innerText = document.getElementById('range').value">
+
+      <small>Include:</small>
+      <div class="form-group">
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="use_lowercase" disabled checked>
+          <label class="form-check-label" for="use_lowercase">Lowercase</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" name="use_uppercase" id="uppercase" {% if use_uppercase %}
+            checked {% endif %}>
+          <label class="form-check-label" for="uppercase">Uppercase</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input type="checkbox" class="form-check-input" name="use_symbols" id="symbols" {% if use_symbols %} checked
+            {% endif %}>
+          <label class="form-check-label" for="symbols">Symbols</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" name="use_numbers" id="numbers" {% if use_numbers %} checked
+            {% endif %}>
+          <label class="form-check-label" for="numbers">Numbers</label>
+        </div>
+
+      </div>
+
+      <button type="submit" class="btn btn-primary mt-3">Generate password</button>
+    </form>
+
+
+  </div>
+</div>
+{% endblock %}
